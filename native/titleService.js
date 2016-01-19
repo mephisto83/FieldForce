@@ -9,6 +9,6 @@ export const titleService = {
 		if (titleService.titleValues[id]) {
 			return titleService.titleValues[id];
 		}
-		return "[" + default_ + "]";
+		return   default_ ;
 	}
 };

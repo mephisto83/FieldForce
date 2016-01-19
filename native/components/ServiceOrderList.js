@@ -73,6 +73,12 @@ export class ServiceOrderList extends Component {
               </View>  
             );
         }
+        var listContentstyles = [styles.listContent];
+        var containerStyles = [styles.listContentContainer];
+        if(Accessors.isHighPriority(item)){
+            listContentstyles.push({backgroundColor: styleColors.highPriorityBackgroundColor})
+            containerStyles.push({backgroundColor: styleColors.highPriorityBackgroundColor})
+        }
         return {
             item: item,
             id: item.workOrder,
@@ -84,15 +90,22 @@ export class ServiceOrderList extends Component {
                 }, 300);
             },
             children: (
-                 <View style={[styles.listContentContainer]}>
+                 <View style={[containerStyles]}>
                     <View style={[styles.list]}>
                         {assignedTo}
                     </View>
-                    <View style={[styles.listContent]}>
+                    <View style={listContentstyles}>
                         <Text style={[styles.listTitleText]}>{item.description}</Text>
                         <Text style={[styles.workOrderNumber]}>{item.workOrder}</Text>
-                        <Text style={[styles.locationText]}>{item.location}</Text>
-                        <Text style={[styles.dateText]}>{item.startDate}</Text>
+                        
+                        <View style={[styles.serviceOrderListItemBottomPart]}>
+                            <View style={{flex: 1, alignSelf: 'flex-start'}}>
+                                <Text style={[styles.locationText]}>{item.location}</Text>
+                            </View>
+                            <View style={{flex: 1, alignSelf: 'flex-end' }}>
+                                <Text style={[styles.dateText, { alignSelf: 'flex-end'}]}>{item.startDate}</Text>
+                            </View>
+                        </View>
                     </View>
                 </View>
             )

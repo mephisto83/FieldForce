@@ -55,6 +55,9 @@ export function getHighPriority(state){
     }
 }
 
+export function isHighPriority(item){
+    return item.listCategory === highPriority;
+}
 
 export function getOrderPool(state){
     var ostate = state.orders;

@@ -9,18 +9,18 @@ var {
 
 var transparent = 'rgba(0,0,0,0)';
 var HEADER = '#3b5998';
-var BGWASH = 'rgba(255,255,255,0.8)';
-var COLOR1 = '#7c878e';
+var BGWASH = '#7c878e';
+var COLOR1 = '#ffffff';
 var COLOR1_SUB = '#949089'
-var COLOR2 = '#4ac7ed';
+var COLOR2 = '#7c878e';
 export const COLOR2_Active = '#0C1019'
 var COLOR3 = '#bfda3a';
 var COLOR4 = '#f68d2e'
 var COLOR1A = '#4a5c69';
 var TEXT_COLOR = COLOR2;
 var TEXT_COLOR_SUB = COLOR1_SUB;
-var TEXT_TITLE_COLOR = COLOR2;
-var TEXT_COLOR_ON_BACKGROUND = COLOR1_SUB;
+var TEXT_TITLE_COLOR = "#4296f5";
+var TEXT_COLOR_ON_BACKGROUND = "#d742f5";
 var LIST_ITEM_BACKGROUND_COLOR = COLOR1;
 var SECTION_ITEM_BACKGROUND_COLOR = "#EFF0F1";
 var ASSIGNMENT_BUTTON_COLOR = COLOR3;
@@ -42,7 +42,8 @@ export const styleColors = {
     UNASSIGN_COLOR: COLOR3,
     ON_HOLD_COLOR: COLOR4,
     IN_PROGRESS_COLOR: COLOR2,
-    ICON_COLOR: ICON_COLOR
+    ICON_COLOR: ICON_COLOR,
+    highPriorityBackgroundColor: '#fff6a3'
 }
 export const styles = StyleSheet.create({
     container: {
@@ -67,7 +68,7 @@ export const styles = StyleSheet.create({
         color: TEXT_COLOR_ON_BACKGROUND
     },
     Screen: {
-        padding: 10
+        padding: 0
     },
     assignmentWorkOrder: {
       fontSize: (fontSize - 3) 
@@ -144,7 +145,7 @@ export const styles = StyleSheet.create({
          fontSize: (fontSize - 3)
     },
     serviceOrderHighLightText: {
-        color: TEXT_COLOR,
+        color: TEXT_TITLE_COLOR,
         fontSize: fontSize,
         flex: 1,
         margin: 10
@@ -157,7 +158,7 @@ export const styles = StyleSheet.create({
     liContainer: {
         backgroundColor: LIST_ITEM_BACKGROUND_COLOR,
         flex: 1,
-        paddingLeft: paddingLeft,
+        paddingLeft: 0,
     },
     liIndent: {
         flex: 1,
@@ -193,6 +194,10 @@ export const styles = StyleSheet.create({
     },
     feedBackInputPanel : {
         backgroundColor: FEEDBACK_INPUT_COLOR
+    },
+    serviceOrderListItemBottomPart: {
+        flex: 1,
+        flexDirection:'row'
     }
 });
 export const fieldForceListStyleValues = StyleSheet.create({
