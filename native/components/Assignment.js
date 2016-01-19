@@ -31,7 +31,7 @@ class Assignment extends Component {
     constructor(props){
         super(props)
         this.state = {
-            bottomWindowTop: new Animated.Value(0),
+            bottomWindowTop: new Animated.Value(bottomBarHeight || 0),
             date: new Date(),
             comment: '',
             opened: false,
@@ -112,18 +112,20 @@ class Assignment extends Component {
     navigateToList(){
         this.props.navigator.push({id: Scenes.SERVICE_ORDER_LIST})
     }
-    componentDidMount (){
+    componentDidUpdate (){
         var me = this;
         openBoard = undefined;
-        setTimeout(function(){
-            me.refs.bottomView.measureLayout(React.findNodeHandle(me),(ox, oy, width, bheight) => {
-                
-                let { height } = Dimensions.get('window');
-                var windowHeight = height;
-                bottomBarHeight = windowHeight - bheight;
-                me.state.bottomWindowTop.setValue(windowHeight - bheight);
-            });
-        }, 100)
+        if(!me.state.opened){
+            setTimeout(function(){
+                me.refs.bottomView.measureLayout(React.findNodeHandle(me),(ox, oy, width, bheight) => {
+                    
+                    let { height } = Dimensions.get('window');
+                    var windowHeight = height;
+                    bottomBarHeight = windowHeight - bheight;
+                    me.state.bottomWindowTop.setValue(bottomBarHeight);
+                });
+            }, 1)
+        }
     }
     toggleBottomWindow(board) {
         var me = this;
@@ -140,7 +142,7 @@ class Assignment extends Component {
                 });
             });
         }
-        console.log(swiperCallback);
+        
         if(swiperCallback) {
             switch(board) {
                 case "time":
@@ -190,8 +192,7 @@ class Assignment extends Component {
         var windowWidth = width;
         var windowHeight = height;
         var currentAssignment = Accessor.getCurrentAssignment(this.props.state);
-        console.log(currentAssignment);
-        console.log(this.props.state);
+
         const { state, dispatch } = this.props;
         var closeSection = (
             <View>

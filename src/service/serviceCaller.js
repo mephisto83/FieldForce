@@ -31,7 +31,6 @@ export const service = {
         return accessToken;
     },
     call: function (endpoint, method, body) {
-        console.log('calling endpoint ' + endpoint);
         return fetch(endpoint, {
             headers: Object.assign({}, headers, {
                 // 'Authorization': 'Bearer ' + service.getAccessToken()
@@ -39,7 +38,6 @@ export const service = {
             method: method,
             body: body == undefined ? null : JSON.stringify(body)
         }).then(function (response) {
-            console.log('called endpoint ' + endpoint)
             return response.json().then(function (json) {
                 return json;
             })
@@ -47,7 +45,6 @@ export const service = {
     },
     delete: function (path) {
         var endpoint = baseDomain + path;
-        console.log(endpoint);
         return service.call(endpoint, 'DELETE');
     },
     put: function (path, body) {

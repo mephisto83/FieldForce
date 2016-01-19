@@ -87,7 +87,6 @@ mock.func("get", service.get, c => {
 		case endPoints.getOrdersEndpoint + parameters(service.getClient()):
 			return Promise.resolve(FieldForceResults.getOrderListResults);
 	}
-	console.log('missed endpoint - get' + c)
 }, service);
 
 mock.func("post", service.post, c => {
@@ -98,7 +97,6 @@ mock.func("post", service.post, c => {
 		case endPoints.createCard:
 			return Promise.resolve(FieldForceResults.addCardResult);
 	}
-	console.log('missed endpoint - post ' + c)
 }, service);
 
 
@@ -110,7 +108,6 @@ mock.func("put", service.put, c => {
 		case endPoints.updateCard:
 			return Promise.resolve(FieldForceResults.updateCardResult);
 	}
-	console.log('missed endpoint - post ' + c)
 }, service);
 
 
@@ -122,5 +119,4 @@ mock.func("delete", service.delete, c => {
 		case endPoints.deleteConnection + '/id':
 			return Promise.resolve(FieldForceResults.connectionCreateResult);
 	}
-	console.log('missed endpoint - delete' + c)
 }, service);

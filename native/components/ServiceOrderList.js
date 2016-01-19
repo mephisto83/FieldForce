@@ -40,7 +40,6 @@ export class ServiceOrderList extends Component {
     componentWillReceiveProps (){ 
     }
     renderRow (item) {
-        console.log('render row');
            return (
                   <View>
                     <Swipeout 
@@ -80,8 +79,9 @@ export class ServiceOrderList extends Component {
             text: item.description,
             onPress: () =>{
                 me.props.navigator.push({id: Scenes.ASSIGNMENT})
-                console.log(item);
-                me.props.setCurrentAssignment(item.workOrder);
+                setTimeout(()=>{
+                    me.props.setCurrentAssignment(item.workOrder);
+                }, 300);
             },
             children: (
                  <View style={[styles.listContentContainer]}>
@@ -99,8 +99,6 @@ export class ServiceOrderList extends Component {
         }    
     }
     sectionHeaderView(sectionData, sectionID) {
-        console.log(sectionID)
-        console.log(sectionData);
         var sectionTitle = '';
         switch(parseInt(sectionID)) {
             case 10:
@@ -139,9 +137,12 @@ export class ServiceOrderList extends Component {
                     getPageCallback={()=>{ 
                         console.log('get page callback')
                     }}
+                    initialListSize={1}
+                    pageSize={1}
                     sectionHeaderView={this.sectionHeaderView.bind(this)}
                     rowView={this.renderRow.bind(this)}
                     firstLoader={false}
+                    
                     pagination={false} />
             </View>
         );

@@ -168,7 +168,6 @@ var Swipeout = React.createClass({
     var contentWidth = this.state.contentWidth
     var btnsLeftWidth = this.state.btnsLeftWidth
     var btnsRightWidth = this.state.btnsRightWidth
-    console.log(' gestureState.dx ' +  gestureState.dx)
     //  minimum threshold to open swipeout
     var openX = contentWidth*0.33
     //  should open swipeout

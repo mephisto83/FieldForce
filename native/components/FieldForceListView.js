@@ -221,7 +221,6 @@ export const FieldForceListView = React.createClass({
 
     var ds = null;
     if (this.props.withSections === true) {
-        console.log('list with sections')
       ds = new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2,
         sectionHeaderHasChanged: (section1, section2) => section1 !== section2,

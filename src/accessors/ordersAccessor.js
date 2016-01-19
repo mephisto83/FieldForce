@@ -82,7 +82,6 @@ export function getCurrentAssignment(state){
     var appState = state.application;
     var oState = state.orders;
     if(appState){
-        console.log(oState)
         return getOrder(oState, appState.currentAssignment)
     }
     
