@@ -67,7 +67,7 @@ var SwipeoutBtn = React.createClass({
     )
   }
 })
-
+var minMovement = 1;
 var Swipeout = React.createClass({
  
  getDefaultProps: function() {
@@ -107,13 +107,13 @@ var Swipeout = React.createClass({
     if (nextProps.close) this._close()
   }
 , _handleStartShouldSetPanResponder: function(e: Object, gestureState: Object): boolean {
-       if (gestureState.dx > 5 || gestureState.dy  > 5) {
+       if (gestureState.dx > minMovement || gestureState.dy  > minMovement) {
       return true;
     }
     return false;
   }
 , _handleMoveShouldSetPanResponder: function(e: Object, gestureState: Object): boolean {
-    if (gestureState.dx > 5 || gestureState.dy  > 5) {
+    if (gestureState.dx > minMovement || gestureState.dy  > minMovement) {
       return true;
     }
     return false;
