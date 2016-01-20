@@ -23,7 +23,8 @@ var TEXT_TITLE_COLOR = "#4296f5";
 var TEXT_COLOR_ON_BACKGROUND = "#d742f5";
 var LIST_ITEM_BACKGROUND_COLOR = COLOR1;
 var SECTION_ITEM_BACKGROUND_COLOR = "#EFF0F1";
-var ASSIGNMENT_BUTTON_COLOR = COLOR3;
+var ASSIGNMENT_BUTTON_COLOR = "#4c5358";
+var ASSIGNMENT_BACKGROUND_COLOR = "#e7e9ea" ;//"#4c5358";
 var LIST_ITEM_DIVIDER = COLOR1A;
 var BOARD_COLOR  = COLOR1;
 var BUTTON_COLOR = COLOR4;
@@ -35,19 +36,40 @@ var FEEDBACK_INPUT_COLOR = '#FFffff'
 var BUTTON_TEXT_COLOR = FEEDBACK_INPUT_COLOR;
 var BORDER_COLOR = COLOR2;
 var paddingLeft = 5;
+var INFO_SECTION_BORDER_COLOR  = '#f5f6f6';
 var fontSize = 12;
-
+var NAV_BACKGROUND_COLOR =  '#4c5358'
+export const  NAV_BAR_HEIGHT = 45;
 export const styleColors = {
     CALL_COLOR: '#ff0000',
     UNASSIGN_COLOR: COLOR3,
     ON_HOLD_COLOR: COLOR4,
     IN_PROGRESS_COLOR: COLOR2,
     ICON_COLOR: ICON_COLOR,
-    highPriorityBackgroundColor: '#fff6a3'
+    highPriorityBackgroundColor: '#fff6a3',
+    ICON_BUTTON_COLOR: '#e7e9ea'
 }
 export const styles = StyleSheet.create({
     container: {
         flex: 1
+    },
+    ApplicationContainer: {
+       paddingTop: NAV_BAR_HEIGHT  
+    },
+    navBar: {
+        backgroundColor: NAV_BACKGROUND_COLOR,
+        padding: 0,
+        flex: 1
+    },
+    navText: {
+        fontSize: 16,
+        marginVertical: 10,
+        color: FEEDBACK_INPUT_COLOR  
+    },
+    navBarTitleText: {
+        fontWeight: '500',
+        marginVertical: 9,
+        paddingLeft:30
     },
     rootStyle: {
         backgroundColor: SCREEN_BACKGROUND_COLOR
@@ -78,7 +100,8 @@ export const styles = StyleSheet.create({
     },
     Assignment: {
         padding: 0,
-        flex: 1
+        flex: 1,
+        backgroundColor: ASSIGNMENT_BACKGROUND_COLOR
     },  
     button: {
         flex: 1,
@@ -125,12 +148,13 @@ export const styles = StyleSheet.create({
        fontSize: fontSize + 10 
     }, 
     assignmentInfoSection :{
-        marginTop: 3,
-        marginBottom: 3,
         padding: 10,
-        borderWidth: 1,
+        borderBottomWidth: 1,
         backgroundColor: BOARD_COLOR,
-        borderColor: BORDER_COLOR,
+        borderColor: INFO_SECTION_BORDER_COLOR,
+    },
+    buttonIconText: {
+        color: styleColors.ICON_BUTTON_COLOR
     },
     assignmentBtn: {
         fontSize: fontSize+2

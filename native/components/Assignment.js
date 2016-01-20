@@ -4,7 +4,7 @@ import { connect } from 'react-redux/native';
 import {utils} from '../utilities';
 import {titleService} from '../titleService';
 import {titles} from '../titles';
-import {styles, styleColors} from '../styles';
+import {styles, styleColors, NAV_BAR_HEIGHT} from '../styles';
 import {ServiceOrderHighlights} from './ServiceOrderHighlights';
 import {Scenes} from '../globals';
 import * as Accessor from '../../src/accessors/ordersAccessor'
@@ -20,7 +20,8 @@ var {
 } = React;
 var CalendarPicker = require('react-native-calendar-picker');
 var { Icon } = require('react-native-icons');
-var bottomBarHeight;
+var TOP_BOTTOM_WINDOW  = 10;
+var bottomBarHeight = 0;
 var swiperCallback;
 var openBoard;
 
@@ -110,7 +111,7 @@ class Assignment extends Component {
         return result;
     }
     navigateToList(){
-        this.props.navigator.push({id: Scenes.SERVICE_ORDER_LIST})
+        this.props.navigator.push( Object.assign({}, Scenes.SERVICE_ORDER_LIST));
     }
     componentDidUpdate (){
         var me = this;
@@ -118,11 +119,16 @@ class Assignment extends Component {
         if(!me.state.opened){
             setTimeout(function(){
                 me.refs.bottomView.measureLayout(React.findNodeHandle(me),(ox, oy, width, bheight) => {
-                    
                     let { height } = Dimensions.get('window');
                     var windowHeight = height;
-                    bottomBarHeight = windowHeight - bheight;
-                    me.state.bottomWindowTop.setValue(bottomBarHeight);
+                    bottomBarHeight =   windowHeight - bheight - NAV_BAR_HEIGHT;
+                    // me.state.bottomWindowTop.setValue(bottomBarHeight);
+                    Animated.spring(me.state.bottomWindowTop, {
+                            toValue: bottomBarHeight,                         // Animate to smaller size
+                            velocity: 3,  // Velocity makes it move
+                            tension: -10, // Slow
+                            friction: 1,  // Oscillate a lot
+                    }).start();   
                 });
             }, 1)
         }
@@ -130,17 +136,17 @@ class Assignment extends Component {
     toggleBottomWindow(board) {
         var me = this;
         if(!me.state.opened){
-            me.refs.bottomView.measureLayout(React.findNodeHandle(me),(ox, oy, width, bheight) => {
-                Animated.spring(me.state.bottomWindowTop, {
-                            toValue: 0,                         // Animate to smaller size
-                            velocity: 3,  // Velocity makes it move
-                            tension: -10, // Slow
-                            friction: 1,  // Oscillate a lot
-                }).start();      
-                me.setState({
-                    opened: true
-                });
+            me.state.bottomWindowTop.setValue(TOP_BOTTOM_WINDOW);
+                // Animated.spring(me.state.bottomWindowTop, {
+                //             toValue: 0,                         // Animate to smaller size
+                //             velocity: 3,  // Velocity makes it move
+                //             tension: -10, // Slow
+                //             friction: 1,  // Oscillate a lot
+                // }).start();      
+            me.setState({
+                opened: true
             });
+          
         }
         
         if(swiperCallback) {
@@ -197,14 +203,16 @@ class Assignment extends Component {
         var closeSection = (
             <View>
             </View>
-        )
+        );
+        
         var swipSection  = (
             <View>
             </View>
         );
+        
         if(this.state.opened){
             closeSection = (
-             <TouchableOpacity  style={[styles.closeTopBtn,{ width: windowWidth}]} onPress={()=>{
+             <TouchableOpacity  style={[styles.closeTopBtn,{ width: windowWidth}]} onPress={() => {
                     let { height } = Dimensions.get('window');
                     var windowHeight = height;
                     Animated.spring(me.state.bottomWindowTop, {
@@ -231,7 +239,7 @@ class Assignment extends Component {
         }
         if(currentAssignment){
           return (
-                <View style={[styles.Screen, styles.Assignment]}>
+                <View style={[styles.Screen, styles.Assignment, { height: Dimensions.get('window').height - NAV_BAR_HEIGHT }]}>
                     <View style={{flex: 1, paddingBottom: 30}}>
                         <View style={[styles.assignmentInfoSection]}>
                             <Text style={[styles.assignmentDescriptionLabel]}>
@@ -285,8 +293,6 @@ class Assignment extends Component {
         }
         return (
             <View style={styles.Screen}>
-                <View style={[styles.AssignmentButtons]}>
-                </View>
             </View>
         );
     }

@@ -14,7 +14,8 @@ var {
 
 class DashBoard extends Component {
     navigateToList(){
-        this.props.navigator.push({id: Scenes.SERVICE_ORDER_LIST})
+        console.log('navigate to service order list')
+        this.props.navigator.push( Scenes.SERVICE_ORDER_LIST )
     }
     render () {
         const { state, dispatch } = this.props;

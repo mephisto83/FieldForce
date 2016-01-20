@@ -84,13 +84,13 @@ export class ServiceOrderList extends Component {
             id: item.workOrder,
             text: item.description,
             onPress: () =>{
-                me.props.navigator.push({id: Scenes.ASSIGNMENT})
+                me.props.navigator.push(Scenes.ASSIGNMENT)
                 setTimeout(()=>{
                     me.props.setCurrentAssignment(item.workOrder);
-                }, 300);
+                }, 500);
             },
             children: (
-                 <View style={[containerStyles]}>
+                 <View  style={[containerStyles]}>
                     <View style={[styles.list]}>
                         {assignedTo}
                     </View>
@@ -141,7 +141,7 @@ export class ServiceOrderList extends Component {
         var orderGroups = orders;
         
         return (
-            <View style={{flex: 1}}>  
+            <View {...this.props} style={[styles.ApplicationContainer, {flex: 1}]}>  
                 <FieldForceListView
                     data={orderGroups}
                     style={{flex: 1}}

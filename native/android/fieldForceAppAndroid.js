@@ -5,7 +5,6 @@ import {titles} from '../titles';
 import { connect } from 'react-redux/native';
 import {utils} from '../utilities';
 import {Scenes} from '../globals';
-
 var {
   Navigator,
   View,
@@ -15,6 +14,7 @@ var {
 import ServiceOrderList  from '../components/ServiceOrderList';
 import DashBoard from '../components/DashBoard';
 import Assignment from '../components/Assignment';
+import SBNavBar from '../components/SBNavBar';
 
 class FieldForceAppAndroid extends Component {
     constructor(props) {
@@ -25,20 +25,49 @@ class FieldForceAppAndroid extends Component {
     }
     renderScene (route, nav) {
         switch(route.id){
-            case Scenes.ASSIGNMENT:
+            case Scenes.ASSIGNMENT.id:
                 return (
-                    <Assignment navigator={nav} />
+                    <View style={styles.ApplicationContainer}>
+                        <Assignment navigator={nav} />
+                    </View>
                 )
-            case Scenes.SERVICE_ORDER_LIST:
-                return (
-                    <ServiceOrderList navigator={nav} />
+            case Scenes.SERVICE_ORDER_LIST.id:
+                return ( 
+                        <ServiceOrderList navigator={nav} /> 
                 );
-             default:
+            default:
                 return (
-                    <DashBoard navigator={nav} />
+                    <View style={styles.ApplicationContainer}>
+                        <DashBoard navigator={nav} />
+                    </View>
                 );
         }
     }
+    //  renderScene (route, nav) {
+    //     console.log(route)
+    //     var selectedScene; 
+    //     switch(route.id){
+    //         case Scenes.ASSIGNMENT.id:
+    //             selectedScene = (
+    //                 <Assignment navigator={nav} />
+    //             )
+    //         case Scenes.SERVICE_ORDER_LIST.id:
+    //             selectedScene = (
+    //                 <ServiceOrderList navigator={nav} />
+    //             );
+    //         default:
+    //             selectedScene = (
+    //                 <DashBoard navigator={nav} />
+    //             );
+    //     }
+    //     
+    //     var scene = (
+    //         <View style={styles.ApplicationContainer}>
+    //             {selectedScene}
+    //         </View>
+    //     )
+    //     return scene;
+    // }
     render () {
        const { state, dispatch } = this.props;
        
@@ -46,11 +75,8 @@ class FieldForceAppAndroid extends Component {
             <Navigator 
                 style={[styles.container, styles.rootStyle]}
                 renderScene={this.renderScene}
-                initialRoute={{
-                    id: Scenes.DASHBOARD,
-                    index: 0,
-                    title: titleService.get(titles.DashBoard, 'DashBoard')
-                }} />
+                navigationBar={<SBNavBar  />}
+                initialRoute={Object.assign({},Scenes.DASHBOARD)} />
         );
     }
 }

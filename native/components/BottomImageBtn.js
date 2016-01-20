@@ -24,10 +24,10 @@ export class BottomImageBtn extends Component {
                 <View style={[{flex: 1, flexDirection: 'column', alignItems: 'center' }, styles.bottomImageBtn]}>
                     <Icon
                         name={this.props.icon}
-                        size={40}
-                        color={styleColors.ICON_COLOR} 
+                        size={25}
+                        color={styleColors.ICON_BUTTON_COLOR} 
                         style={styles.bottomIconImages} />
-                    <Text>
+                    <Text style={[styles.buttonIconText]}>
                         {this.props.text}
                     </Text>
                 </View>
