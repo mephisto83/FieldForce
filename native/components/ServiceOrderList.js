@@ -84,10 +84,10 @@ export class ServiceOrderList extends Component {
             id: item.workOrder,
             text: item.description,
             onPress: () =>{
-                me.props.navigator.push(Scenes.ASSIGNMENT)
+                 me.props.setCurrentAssignment(item.workOrder);
                 setTimeout(()=>{
-                    me.props.setCurrentAssignment(item.workOrder);
-                }, 500);
+                me.props.navigator.push(Scenes.ASSIGNMENT)
+                }, 100);
             },
             children: (
                  <View  style={[containerStyles]}>
