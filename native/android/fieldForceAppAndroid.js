@@ -8,9 +8,16 @@ import {Scenes} from '../globals';
 var {
   Navigator,
   View,
-  Text
+  Text,
+  NativeModules
 } = React;
 
+for(var i in NativeModules){
+    console.log(i);
+}
+
+var  {NearFieldCommunications} = NativeModules; 
+console.log(NearFieldCommunications);
 import ServiceOrderList  from '../components/ServiceOrderList';
 import DashBoard from '../components/DashBoard';
 import Assignment from '../components/Assignment';
@@ -22,6 +29,11 @@ class FieldForceAppAndroid extends Component {
     } 
     componentDidMount(){
         this.props.getOrdersAsync();
+        setTimeout(function(){
+            console.log('setting message');
+            NearFieldCommunications.setMessage('a message was set from react : ' + Date.now());
+            console.log('set message');
+        }, 3000)
     }
     renderScene (route, nav) {
         switch(route.id){

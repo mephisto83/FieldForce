@@ -6,3 +6,8 @@ include ':app'
 include ':react-native-icons'
 project(':react-native-icons').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-icons/android')
 
+
+
+include ':react-native-near-field-communication'
+project(':react-native-near-field-communication').projectDir = new File(rootProject.projectDir, '../unit4_modules/react-native-near-field-communication/android')
+

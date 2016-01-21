@@ -1,0 +1,11 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.nfc">
+    <uses-sdk android:minSdkVersion="14"/>
+    <uses-permission android:name="android.permission.NFC" />
+    
+    <intent-filter>
+              <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+              <category android:name="android.intent.category.DEFAULT"/>
+              <data android:mimeType="text/plain" />
+    </intent-filter>
+</manifest>
