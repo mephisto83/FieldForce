@@ -38,7 +38,7 @@ class FieldForceAppAndroid extends Component {
             // me.state.nfctexts.push(e);
             me.setState({
                 nfctexts: [...me.state.nfctexts, e]
-            })
+            });
         });
         setTimeout(function(){
             console.log('setting message');

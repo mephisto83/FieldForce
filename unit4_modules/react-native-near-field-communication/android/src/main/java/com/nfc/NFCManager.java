@@ -66,7 +66,7 @@ public class NFCManager implements ReactPackage {
         
         modules.add(nfcCommunications);
         if(this._intent != null){
-                nfcCommunications.processIntent(this._intent);
+               //  nfcCommunications.processIntent(this._intent);
         }
         return modules;
     }

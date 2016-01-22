@@ -38,8 +38,7 @@ public class NearFieldCommunications  extends ReactContextBaseJavaModule  implem
     }
     
     public void processIntent(Intent intent){
-        Parcelable[] rawMsgs = intent.getParcelableArrayExtra(
-                NfcAdapter.EXTRA_NDEF_MESSAGES);
+        Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
         // only one message sent during the beam
         NdefMessage msg = (NdefMessage) rawMsgs[0];
         if(msg != null){ 
