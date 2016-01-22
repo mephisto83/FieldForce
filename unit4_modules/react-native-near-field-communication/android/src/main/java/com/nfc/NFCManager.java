@@ -24,6 +24,7 @@ public class NFCManager implements ReactPackage {
     private NearFieldCommunications nfcCommunications;
     private Activity _activity;
     private NfcAdapter _nfcAdapter;
+    private Intent _intent;
     private ReactApplicationContext appContext;
     public NFCManager(Activity activity, NfcAdapter nfcAdapter) {
         this._activity = activity;
@@ -39,13 +40,14 @@ public class NFCManager implements ReactPackage {
                 nfcCommunications.processIntent(intent);
         }
         else {
+            this._intent = intent;
             Toast.makeText(_activity, "No nfc communcations", Toast.LENGTH_LONG).show();
         }
     }
     
     public NdefMessage createNdefMessage(NfcEvent event) {
         if(nfcCommunications != null) {
-                return nfcCommunications.createNdefMessage(event);
+            return nfcCommunications.createNdefMessage(event);
         }
         else {
             Toast.makeText(_activity, "Create ndef:No nfc communcations", Toast.LENGTH_LONG).show();
@@ -53,16 +55,19 @@ public class NFCManager implements ReactPackage {
         return null;
     }
     void createNfcCommunications(){
-        this.nfcCommunications = new NearFieldCommunications(this.appContext, this._activity, this._nfcAdapter);
+        if(this.appContext != null)
+            this.nfcCommunications = new NearFieldCommunications(this.appContext, this._activity, this._nfcAdapter);
     }
     @Override
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
         List<NativeModule> modules = new ArrayList<>();
-        appContext = reactContext;
+        this.appContext = reactContext;
         createNfcCommunications();
         
         modules.add(nfcCommunications);
-        
+        if(this._intent != null){
+                nfcCommunications.processIntent(this._intent);
+        }
         return modules;
     }
 

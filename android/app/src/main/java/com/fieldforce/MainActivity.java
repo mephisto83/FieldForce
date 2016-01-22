@@ -6,7 +6,10 @@ import android.view.KeyEvent;
 
 import android.nfc.NfcAdapter.CreateNdefMessageCallback;
 import android.content.Intent;
+import android.app.PendingIntent;
+import android.content.IntentFilter;
 import android.nfc.NdefMessage;
+import android.content.IntentFilter.MalformedMimeTypeException;
 
 import com.facebook.react.LifecycleState;
 import com.facebook.react.ReactInstanceManager;
@@ -30,7 +33,8 @@ public class MainActivity extends Activity implements DefaultHardwareBackBtnHand
     private ReactRootView mReactRootView;
     private NfcAdapter mNfcAdapter;
     private NFCManager nfcPackage;
-    
+    PendingIntent pendingIntent;
+     IntentFilter[] intentFiltersArray;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +47,17 @@ public class MainActivity extends Activity implements DefaultHardwareBackBtnHand
         }
         else {
             Toast.makeText(this, "NFC is available", Toast.LENGTH_LONG).show();
+            
+            pendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
+             IntentFilter ndef = new IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED);
+                 try {
+                            ndef.addDataType("text/plain");    /* Handles all MIME based dispatches.
+                                                You should specify only the ones that you need. */
+                  }
+                    catch (MalformedMimeTypeException e) {
+                        throw new RuntimeException("fail", e);
+                    }
+            intentFiltersArray = new IntentFilter[] {ndef };
             // Register callback
             mNfcAdapter.setNdefPushMessageCallback(this, this);
         }
@@ -92,6 +107,7 @@ public class MainActivity extends Activity implements DefaultHardwareBackBtnHand
     @Override
     protected void onPause() {
         super.onPause();
+        mNfcAdapter.disableForegroundDispatch(this);
 
         if (mReactInstanceManager != null) {
             mReactInstanceManager.onPause();
@@ -105,9 +121,11 @@ public class MainActivity extends Activity implements DefaultHardwareBackBtnHand
         if (mReactInstanceManager != null) {
             mReactInstanceManager.onResume(this, this);
         }
+        mNfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFiltersArray,  new String[][] {  new String[] { } });
+
         Intent intent = getIntent();
         // Check to see that the Activity started due to an Android Beam
-        if (intent  != null && NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
+        if (intent  != null && NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction()) && nfcPackage != null) {
             
             nfcPackage.processIntent(intent);
         }

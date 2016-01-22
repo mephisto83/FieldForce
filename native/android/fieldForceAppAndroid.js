@@ -1,5 +1,5 @@
 import {styles} from '../styles';
-import React, { Component } from 'react-native'; 
+import React, { Component, DeviceEventEmitter } from 'react-native'; 
 import {titleService} from '../titleService';
 import {titles} from '../titles';
 import { connect } from 'react-redux/native';
@@ -26,14 +26,31 @@ import SBNavBar from '../components/SBNavBar';
 class FieldForceAppAndroid extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            nfctexts: []
+        }
     } 
     componentDidMount(){
+        var me = this;
         this.props.getOrdersAsync();
+        DeviceEventEmitter.addListener('nfcText', function(e) {
+            console.log(e);
+            // me.state.nfctexts.push(e);
+            me.setState({
+                nfctexts: [...me.state.nfctexts, e]
+            })
+        });
         setTimeout(function(){
             console.log('setting message');
             NearFieldCommunications.setMessage('a message was set from react : ' + Date.now());
             console.log('set message');
-        }, 3000)
+        }, 3000);
+        
+        setInterval(function(){
+              console.log('expose Intent');
+            NearFieldCommunications.exposeIntent();
+              console.log('exposed Intent');
+        }, 5000);
     }
     renderScene (route, nav) {
         switch(route.id){
@@ -50,6 +67,9 @@ class FieldForceAppAndroid extends Component {
             default:
                 return (
                     <View style={styles.ApplicationContainer}>
+                        <Text style={{fontSize: 20}}>
+                            Nfc texts : {this.state.nfctexts.length}
+                        </Text>
                         <DashBoard navigator={nav} />
                     </View>
                 );
@@ -86,7 +106,7 @@ class FieldForceAppAndroid extends Component {
         return (
             <Navigator 
                 style={[styles.container, styles.rootStyle]}
-                renderScene={this.renderScene}
+                renderScene={this.renderScene.bind(this)}
                 navigationBar={<SBNavBar  />}
                 initialRoute={Object.assign({},Scenes.DASHBOARD)} />
         );
