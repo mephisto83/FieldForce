@@ -52,7 +52,7 @@ class Assignment extends Component {
         var result = (
             <View style={[styles.feedBackInputPanel]}>
                 <Swiper refs={(swiper)=>{me.swiper = swiper}} switchToFuncCallback={this.switchToFuncCallback.bind(this)}>
-                    <View>
+                    <View style={styles.swiperView}>
                         <Text style={[styles.feedBackSectionTitle]}>
                             {titleService.get(titleService.titles.HowMuchTimeSpent, 'How much time spent?')}
                         </Text>
@@ -62,12 +62,12 @@ class Assignment extends Component {
                                     onDateChange={this.onDateChange.bind(this)} />
                         </View>
                     </View>
-                    <View>
+                    <View style={styles.swiperView}>
                         <Text style={[styles.feedBackSectionTitle]}>
                             {titleService.get(titleService.titles.HowMuchTimeSpent, 'What products did you use?')}
                         </Text>
                     </View>
-                    <View>
+                    <View style={styles.swiperView}>
                         <Text style={[styles.feedBackSectionTitle]}>
                             {titleService.get(titleService.titles.HowMuchTimeSpent, 'What equipment did you use?')}
                         </Text>
@@ -79,7 +79,7 @@ class Assignment extends Component {
                             </View>
                         </TouchableOpacity>
                     </View>
-                    <View>
+                    <View style={styles.swiperView}>
                         <Text style={[styles.feedBackSectionTitle]}>
                             {titleService.get(titleService.titles.HowMuchTimeSpent, 'Any comments?')}
                         </Text>

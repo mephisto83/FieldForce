@@ -4,7 +4,8 @@ var React = require('react-native');
 
 var {
     Dimensions,
-    StyleSheet
+    StyleSheet,
+    Platform
 } = React;
 
 var transparent = 'rgba(0,0,0,0)';
@@ -20,7 +21,7 @@ var COLOR1A = '#4a5c69';
 var TEXT_COLOR = COLOR2;
 var TEXT_COLOR_SUB = COLOR1_SUB;
 var TEXT_TITLE_COLOR = "#4296f5";
-var TEXT_COLOR_ON_BACKGROUND = "#d742f5";
+var TEXT_COLOR_ON_BACKGROUND = "#4c5358";
 var LIST_ITEM_BACKGROUND_COLOR = COLOR1;
 var SECTION_ITEM_BACKGROUND_COLOR = "#EFF0F1";
 var ASSIGNMENT_BUTTON_COLOR = "#4c5358";
@@ -39,7 +40,7 @@ var paddingLeft = 5;
 var INFO_SECTION_BORDER_COLOR  = '#f5f6f6';
 var fontSize = 12;
 var NAV_BACKGROUND_COLOR =  '#4c5358'
-export const  NAV_BAR_HEIGHT = 45;
+export const  NAV_BAR_HEIGHT = Platform.OS === 'ios' ? 70 : 45;
 export const styleColors = {
     CALL_COLOR: '#ff0000',
     UNASSIGN_COLOR: COLOR3,
@@ -59,20 +60,23 @@ export const styles = StyleSheet.create({
     navBar: {
         backgroundColor: NAV_BACKGROUND_COLOR,
         padding: 0,
-        flex: 1
+        flex: 1,
+        height: NAV_BAR_HEIGHT
     },
     navText: {
         fontSize: 16,
-        marginVertical: 10,
-        color: FEEDBACK_INPUT_COLOR  
+        marginVertical: 5,
+        color: FEEDBACK_INPUT_COLOR
     },
     navBarTitleText: {
         fontWeight: '500',
-        marginVertical: 9,
-        paddingLeft:30
+        marginVertical: 9
     },
     rootStyle: {
         backgroundColor: SCREEN_BACKGROUND_COLOR
+    },
+    swiperView : {
+        padding: 5  
     },
     serviceDashBoard:{
         flex: 1,
@@ -87,7 +91,8 @@ export const styles = StyleSheet.create({
     },
     serviceDashBoardDateText: {
         fontSize: 15,
-        color: TEXT_COLOR_ON_BACKGROUND
+        color: TEXT_COLOR_ON_BACKGROUND,
+        padding: 10
     },
     Screen: {
         padding: 0
@@ -116,8 +121,9 @@ export const styles = StyleSheet.create({
         fontSize: 20,
         color: BUTTON_TEXT_COLOR
     },
-    feedbackSectionTitle: {
-        fontSize: 30
+    feedBackSectionTitle: {
+        fontSize: 20,
+        padding: 4
     },
     AssignmentButtons: {
         flex: 1,

@@ -45,7 +45,6 @@ class SBNavBar extends Component {
 }
 
 SBNavBar.propTypes = {
-  ...Navigator.NavigationBar.propTypes
 }
  
 export default SBNavBar

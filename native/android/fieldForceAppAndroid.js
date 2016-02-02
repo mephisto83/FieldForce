@@ -40,17 +40,19 @@ class FieldForceAppAndroid extends Component {
                 nfctexts: [...me.state.nfctexts, e]
             });
         });
-        setTimeout(function(){
-            console.log('setting message');
-            NearFieldCommunications.setMessage('a message was set from react : ' + Date.now());
-            console.log('set message');
-        }, 3000);
-        
-        setInterval(function(){
-              console.log('expose Intent');
-            NearFieldCommunications.exposeIntent();
-              console.log('exposed Intent');
-        }, 5000);
+        if(NearFieldCommunications){ 
+            setTimeout(function(){
+                console.log('setting message');
+                NearFieldCommunications.setMessage('a message was set from react : ' + Date.now());
+                console.log('set message');
+            }, 3000);
+            
+            setInterval(function(){
+                console.log('expose Intent');
+                NearFieldCommunications.exposeIntent();
+                console.log('exposed Intent');
+            }, 5000);
+        }
     }
     renderScene (route, nav) {
         switch(route.id){
@@ -64,7 +66,7 @@ class FieldForceAppAndroid extends Component {
                 return ( 
                         <ServiceOrderList navigator={nav} /> 
                 );
-            default:
+            case Scenes.DASHBOARD.id:
                 return (
                     <View style={styles.ApplicationContainer}>
                         <Text style={{fontSize: 20}}>
